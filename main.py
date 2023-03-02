@@ -1,8 +1,8 @@
 import pygame
 from screen import *
 from dinosaur import Dino
-from ground import Ground
-from cloud import Clouds
+from background.ground import Ground
+from background.clouds import Clouds
 
 TPS = 60
 

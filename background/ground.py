@@ -1,3 +1,4 @@
+import pygame
 from sprites import *
 from screen import SCREEN_HEIGHT
 
