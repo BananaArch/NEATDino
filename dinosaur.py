@@ -1,17 +1,16 @@
 from sprites import *
 from screen import SCREEN_HEIGHT
 
-DINO_RUN_IMGS = [DINO_STILL_IMG, DINO_LEFT_IMG, DINO_RIGHT_IMG]
-DINO_DUCK_IMGS = [DINO_DUCK_LEFT_IMG, DINO_DUCK_RIGHT_IMG]
+STILL_IMG = DINO_STILL_IMG
+RUN_IMGS = [DINO_LEFT_IMG, DINO_RIGHT_IMG]
+DUCK_IMGS = [DINO_DUCK_LEFT_IMG, DINO_DUCK_RIGHT_IMG]
 
 class Dino:
 
-    RUN_IMGS = DINO_RUN_IMGS
-    DUCK_IMGS = DINO_DUCK_IMGS
-    RUN_MIN_HEIGHT = .9 * SCREEN_HEIGHT - DINO_RUN_IMGS[0].get_height() # 90% OF SCREEN
-    DUCK_MIN_HEIGHT = .9 * SCREEN_HEIGHT - DINO_DUCK_IMGS[0].get_height()
+    RUN_MIN_HEIGHT = .9 * SCREEN_HEIGHT - RUN_IMGS[0].get_height() # 90% OF SCREEN
+    DUCK_MIN_HEIGHT = .9 * SCREEN_HEIGHT - DUCK_IMGS[0].get_height()
     GRAVITY_ACCELERATION = 1
-    ANIMATION_TIME = 3
+    ANIMATION_TIME = 5
 
     def __init__(self, x):
         self.min_height = self.RUN_MIN_HEIGHT
@@ -23,7 +22,7 @@ class Dino:
         self.img_count = 0
         self.is_jumping = False
         self.is_ducking = False
-        self.img = self.RUN_IMGS[0]
+        self.img = STILL_IMG
 
     def set_is_jumping(self, boolean):
         self.is_jumping = boolean
@@ -35,16 +34,16 @@ class Dino:
 
         self.img_count += 1
 
-        if self.is_jumping and not self.is_ducking:
-            self.img = self.RUN_IMGS[0]
+        if self.is_ducking and not self.is_jumping:
+            self.img = DUCK_IMGS[self.img_count // self.ANIMATION_TIME % len(DUCK_IMGS)]
+            self.min_height = self.DUCK_MIN_HEIGHT
+            self.acc *= 1.5
+        elif self.is_jumping and not self.is_ducking or self.y < self.min_height:
+            self.img = STILL_IMG
             self.min_height = self.RUN_MIN_HEIGHT
             self.acc = self.GRAVITY_ACCELERATION
-        elif self.is_ducking and not self.is_jumping:
-            self.img = self.DUCK_IMGS[self.img_count // self.ANIMATION_TIME % len(self.DUCK_IMGS)]
-            self.min_height = self.DUCK_MIN_HEIGHT
-            self.acc *= 2
         else:
-            self.img = self.RUN_IMGS[self.img_count // self.ANIMATION_TIME % len(self.RUN_IMGS)]
+            self.img = RUN_IMGS[self.img_count // self.ANIMATION_TIME % len(RUN_IMGS)]
             self.min_height = self.RUN_MIN_HEIGHT
 
 

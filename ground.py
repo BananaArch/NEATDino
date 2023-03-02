@@ -1,8 +1,6 @@
 from sprites import *
 from screen import SCREEN_HEIGHT
 
-GROUND_IMG = GROUND_IMG
-
 class Ground:
 
     VEL = 10
