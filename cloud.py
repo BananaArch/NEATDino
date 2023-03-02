@@ -32,8 +32,6 @@ class Clouds:
 
     def create_cloud(self):
 
-        # TODO: Create better cloud-spawning algorithm
-
         self.cloud_chance += self.INCREASE_IN_PERCENT_CHANCE_PER_TICK
 
         # if increasing cloud_chance crosses threshold, spawns new cloud
@@ -41,12 +39,13 @@ class Clouds:
 
             self.clouds.append(Cloud())
             cloud_chance_difference = self.cloud_chance_final - self.cloud_chance_initial
-            self.cloud_chance_initial, self.cloud_chance_final = random.uniform(0, 1 - cloud_chance_difference), random.uniform(1 - cloud_chance_difference, 1)
+            self.cloud_chance_initial = random.uniform(0, cloud_chance_difference)
+            self.cloud_chance_final = random.uniform(self.cloud_chance_initial, 1)
             self.cloud_chance = self.cloud_chance_initial
 
-            print(self.cloud_chance_initial)
-            print(self.cloud_chance_final)
-            print('\n')
+            # print(self.cloud_chance_initial)
+            # print(self.cloud_chance_final)
+            # print('\n')
 
 
 

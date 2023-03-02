@@ -23,7 +23,7 @@ def main():
                 if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
                     dino.set_is_jumping(True)
                 if event.key == pygame.K_DOWN:
-                    dino.set_is_ducking(True)
+                   dino.set_is_ducking(True)
 
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
