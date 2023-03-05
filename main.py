@@ -4,7 +4,7 @@ from dinosaur import Dino
 from background.ground import Ground
 from background.clouds import Clouds
 
-TPS = 60
+TPS = 600
 
 def main():
     dino = Dino(100)

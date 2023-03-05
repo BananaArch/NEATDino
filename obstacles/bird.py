@@ -5,7 +5,7 @@ from screen import SCREEN_HEIGHT, SCREEN_WIDTH
 BIRD_IMGS = [BIRD_UP_IMG, BIRD_DOWN_IMG]
 class Bird:
 
-    VEL = 1
+    VEL_INITIAL = 1
     ANIMATION_SPEED = 5
 
     def __init__(self):
@@ -17,8 +17,10 @@ class Bird:
     def move(self):
         self.x -= self.VEL
 
+        self.img_count += 1
+        self.img = BIRD_IMGS[self.img_count // self.ANIMATION_SPEED % len(BIRD_IMGS)]
+
     def draw(self, screen):
         screen.blit(self.img, (self.x, self.y))
 
-
-
+# TODO: ADD MASKING

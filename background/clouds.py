@@ -21,12 +21,15 @@ class Clouds:
 
             self.clouds.append(Cloud())
             cloud_chance_difference = self.cloud_chance_final - self.cloud_chance_initial
+            # if cloud is further away the next one is closer, if cloud is closer the next one further
             self.cloud_chance_initial = random.uniform(0, cloud_chance_difference)
-            self.cloud_chance_final = random.uniform(self.cloud_chance_initial, 1)
+            self.cloud_chance_final = random.uniform(self.cloud_chance_initial, .95) + .05
+            # makes sure enough space between clouds
             self.cloud_chance = self.cloud_chance_initial
 
             # print(self.cloud_chance_initial)
             # print(self.cloud_chance_final)
+            # print(self.cloud_chance_initial - self.cloud_chance_final)
             # print('\n')
 
 
@@ -39,3 +42,5 @@ class Clouds:
         self.create_cloud()
         for cloud in self.clouds:
             cloud.move()
+            if cloud.x < 0:
+                self.clouds.remove(cloud)
