@@ -24,3 +24,5 @@ class Bird:
         screen.blit(self.img, (self.x, self.y))
 
 # TODO: ADD MASKING
+
+# TODO: WORK ON INCREASE VEL

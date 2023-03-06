@@ -42,5 +42,5 @@ class Clouds:
         self.create_cloud()
         for cloud in self.clouds:
             cloud.move()
-            if cloud.x < 0:
+            if cloud.x < - cloud.img.get_width():
                 self.clouds.remove(cloud)

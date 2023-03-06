@@ -9,7 +9,7 @@ TPS = 600
 def main():
     dino = Dino(100)
     ground = Ground()
-    cloud = Clouds()
+    clouds = Clouds()
 
     clock = pygame.time.Clock()
 
@@ -31,10 +31,10 @@ def main():
                 if event.key == pygame.K_DOWN:
                     dino.set_is_ducking(False)
 
-        cloud.move()
+        clouds.move()
         dino.move()
         ground.move()
-        draw_screen(dino, ground, cloud)
+        draw_screen(dino, ground, clouds)
 
         clock.tick(TPS)
 
