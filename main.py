@@ -39,8 +39,8 @@ def main():
                     dino.is_ducking = False
 
         # add obstacles
-        # if something something
-        obstacles.append(Cactus()) if random.choice([True, False]) else obstacles.append(Bird())
+        # if obstacles.x < .5:
+        #     obstacles.append(Cactus()) if random.choice([True, False]) else obstacles.append(Bird())
 
 
         # change vel
