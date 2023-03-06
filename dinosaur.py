@@ -24,13 +24,6 @@ class Dino:
         self.is_jumping = False
         self.is_ducking = False
         self.img = STILL_IMG
-
-    def set_is_jumping(self, boolean):
-        self.is_jumping = boolean
-
-    def set_is_ducking(self, boolean):
-        self.is_ducking = boolean
-
     def move(self):
 
         self.img_count += 1

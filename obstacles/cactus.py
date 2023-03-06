@@ -9,15 +9,14 @@ CACTI_IMGS = [CACTUS_IMG,
               CACTUS_TRIPLE_IMG]
 class Cactus:
 
-    VEL = 1
-
     def __init__(self):
         self.img = CACTI_IMGS[random.randrange(0, len(CACTI_IMGS))]
         self.x = SCREEN_WIDTH
         self.y = .9 * SCREEN_HEIGHT - self.img.get_height()
+        self.vel = 10
 
     def move(self):
-        self.x -= self.VEL
+        self.x -= self.vel
     def draw(self, screen):
         screen.blit(self.img, (self.x, self.y))
 

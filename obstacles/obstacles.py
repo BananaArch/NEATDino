@@ -1,7 +1,5 @@
 class Obstacles:
 
-    VEL_INITIAL = 5
-    VEL_FINAL = 10
     obstacles = []
 
     def __init__(self):
@@ -9,5 +7,5 @@ class Obstacles:
         self.vel = self.VEL_INITIAL
 
     def draw(self):
-
-        
+        for obstacle in self.obstacles:
+            obstacle.draw()
