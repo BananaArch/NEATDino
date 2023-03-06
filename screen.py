@@ -17,7 +17,7 @@ def get_image(**kwargs):
     image.blit(DINO_SPRITE_SHEET_IMG, (0, 0), (kwargs['x'], kwargs['y'], kwargs['w'], kwargs['h']))
     return image
 
-def draw_screen(dino, ground, cloud):
+def draw_screen(dino, ground, cloud, obstacles):
     screen.fill(BG)
 
 
@@ -25,6 +25,9 @@ def draw_screen(dino, ground, cloud):
     ground.draw(screen)
     cloud.draw(screen)
     dino.draw(screen)
+    for obstacle in obstacles:
+        obstacle.draw(screen)
+
 
     pygame.display.update()
 

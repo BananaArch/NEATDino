@@ -1,4 +1,5 @@
 import pygame
+import random
 from sprites import *
 from screen import SCREEN_HEIGHT, SCREEN_WIDTH
 
@@ -6,11 +7,12 @@ BIRD_IMGS = [BIRD_UP_IMG, BIRD_DOWN_IMG]
 class Bird:
 
     ANIMATION_SPEED = 5
+    POSSIBLE_Y = .9 * SCREEN_HEIGHT - BIRD_IMGS[0].img.get_height()
 
     def __init__(self):
         self.img = BIRD_IMGS[0]
         self.x = SCREEN_WIDTH
-        self.y = .9 * SCREEN_HEIGHT - self.img.get_height()
+        self.y = random.choice(self.POSSIBLE_Y)
         self.img_count = 0
         self.vel = 10
 
