@@ -21,4 +21,5 @@ class Cactus:
     def draw(self, screen):
         screen.blit(self.img, (self.x, self.y))
 
-    # TODO: ADD MASKING
+    def get_mask(self):
+        return pygame.mask.from_surface(self.img)

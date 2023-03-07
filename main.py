@@ -7,6 +7,11 @@ from background.clouds import Clouds
 
 TPS = 60
 
+# stuff to implement
+# score
+# death screen
+# start screen
+
 def main():
     dino = Dino(100)
     ground = Ground()
@@ -24,7 +29,8 @@ def main():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                run = False
+                pygame.quit()
+                quit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
                     dino.is_jumping = True
@@ -41,14 +47,11 @@ def main():
 
         # change vel
         # vel = 10 + score / 100 if 10 + score / 100 < 15 else 15 # make nicer
-        vel = 50 * delta / TPS
-        vel = 10
-        print(delta)
+        vel = 10 * delta * TPS / 1000
 
         ground.vel = vel
         obstacles.vel = vel
-
-
+        clouds.vel = vel / 10
 
         obstacles.move()
         clouds.move()
@@ -56,10 +59,9 @@ def main():
         ground.move()
         draw_screen(dino, ground, clouds, obstacles)
 
+        run = not obstacles.has_collided(dino)
 
-
-    pygame.quit()
-    quit()
+    main()
 
 
 main()

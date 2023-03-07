@@ -2,6 +2,9 @@ import pygame
 import os
 
 pygame.display.init()
+pygame.font.init()
+
+# largeText = pygame.font.Font('freesansbold.ttf',90)
 
 DINO_SPRITE_SHEET_IMG = pygame.image.load(os.path.join('assets', 'dino_sprite_sheet.png'))
 SCREEN_WIDTH = 1200
@@ -20,13 +23,13 @@ def get_image(**kwargs):
 def draw_screen(dino, ground, cloud, obstacles):
     screen.fill(BG)
 
-
-
     ground.draw(screen)
     cloud.draw(screen)
     dino.draw(screen)
     obstacles.draw(screen)
 
-
     pygame.display.update()
 
+def death_text():
+    # text = largeText.render("GAME OVER")
+    pass

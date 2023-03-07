@@ -7,7 +7,9 @@ BIRD_IMGS = [BIRD_UP_IMG, BIRD_DOWN_IMG]
 class Bird:
 
     ANIMATION_SPEED = 5
-    POSSIBLE_Y = [.9 * SCREEN_HEIGHT - BIRD_IMGS[0].get_height()]
+
+    POSSIBLE_Y = [.9 * SCREEN_HEIGHT - 2.6 * BIRD_IMGS[0].get_height(),
+                  .9 * SCREEN_HEIGHT - 1.6 * BIRD_IMGS[0].get_height()]
 
     def __init__(self):
         self.img = BIRD_IMGS[0]
@@ -26,4 +28,5 @@ class Bird:
     def draw(self, screen):
         screen.blit(self.img, (self.x, self.y))
 
-# TODO: ADD MASKING
+    def get_mask(self):
+        return pygame.mask.from_surface(self.img)

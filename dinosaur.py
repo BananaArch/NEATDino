@@ -60,5 +60,5 @@ class Dino:
         screen.blit(self.img, (self.x, self.y))
         pass
 
-
-    # TODO: ADD MASKING
+    def get_mask(self):
+        return pygame.mask.from_surface(self.img)
