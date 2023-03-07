@@ -1,9 +1,7 @@
 import pygame
-import random
 from screen import *
 from dinosaur import Dino
-from obstacles.cactus import Cactus
-from obstacles.bird import Bird
+from obstacles.obstacles import Obstacles
 from background.ground import Ground
 from background.clouds import Clouds
 
@@ -13,15 +11,16 @@ def main():
     dino = Dino(100)
     ground = Ground()
     clouds = Clouds()
-    obstacles = []
+    obstacles = Obstacles()
     score = 0
 
     clock = pygame.time.Clock()
+    delta = 0
 
     run = True
     while run:
 
-        clock.tick(TPS)
+        delta = clock.tick(TPS)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -38,21 +37,20 @@ def main():
                 if event.key == pygame.K_DOWN:
                     dino.is_ducking = False
 
-        # add obstacles
-        # if obstacles.x < .5:
-        #     obstacles.append(Cactus()) if random.choice([True, False]) else obstacles.append(Bird())
-
+        obstacles.update_obstacles()
 
         # change vel
-        vel = 10 + score / 100 if 10 + score / 100 < 15 else 15 # make nicer
+        # vel = 10 + score / 100 if 10 + score / 100 < 15 else 15 # make nicer
+        vel = 50 * delta / TPS
+        vel = 10
+        print(delta)
 
         ground.vel = vel
-
-        for obstacle in obstacles:
-            obstacle.vel = vel
-            obstacle.move()
+        obstacles.vel = vel
 
 
+
+        obstacles.move()
         clouds.move()
         dino.move()
         ground.move()

@@ -25,8 +25,7 @@ def draw_screen(dino, ground, cloud, obstacles):
     ground.draw(screen)
     cloud.draw(screen)
     dino.draw(screen)
-    for obstacle in obstacles:
-        obstacle.draw(screen)
+    obstacles.draw(screen)
 
 
     pygame.display.update()

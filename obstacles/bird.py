@@ -7,7 +7,7 @@ BIRD_IMGS = [BIRD_UP_IMG, BIRD_DOWN_IMG]
 class Bird:
 
     ANIMATION_SPEED = 5
-    POSSIBLE_Y = .9 * SCREEN_HEIGHT - BIRD_IMGS[0].img.get_height()
+    POSSIBLE_Y = [.9 * SCREEN_HEIGHT - BIRD_IMGS[0].get_height()]
 
     def __init__(self):
         self.img = BIRD_IMGS[0]
@@ -15,6 +15,7 @@ class Bird:
         self.y = random.choice(self.POSSIBLE_Y)
         self.img_count = 0
         self.vel = 10
+        self.passed = False
 
     def move(self):
         self.x -= self.vel

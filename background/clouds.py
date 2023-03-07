@@ -16,7 +16,7 @@ class Clouds:
 
         self.cloud_chance += self.INCREASE_IN_PERCENT_CHANCE_PER_TICK
 
-        # if increasing cloud_chance crosses threshold, spawns new cloud
+        # if increasing cloud_chance crosses threshold, spawns new cloud (convoluted)
         if self.cloud_chance >= self.cloud_chance_final:
 
             self.clouds.append(Cloud())

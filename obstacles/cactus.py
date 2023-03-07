@@ -14,6 +14,7 @@ class Cactus:
         self.x = SCREEN_WIDTH
         self.y = .9 * SCREEN_HEIGHT - self.img.get_height()
         self.vel = 10
+        self.passed = False
 
     def move(self):
         self.x -= self.vel

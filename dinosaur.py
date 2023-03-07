@@ -11,7 +11,7 @@ class Dino:
     RUN_MIN_HEIGHT = .9 * SCREEN_HEIGHT - RUN_IMGS[0].get_height() # 90% OF SCREEN
     DUCK_MIN_HEIGHT = .9 * SCREEN_HEIGHT - DUCK_IMGS[0].get_height()
     GRAVITY_ACCELERATION = 1
-    ANIMATION_TIME = 5
+    ANIMATION_TIME = 4
 
     def __init__(self, x):
         self.min_height = self.RUN_MIN_HEIGHT
