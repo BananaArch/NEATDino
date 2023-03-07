@@ -5,10 +5,11 @@ from obstacles.obstacles import Obstacles
 from background.ground import Ground
 from background.clouds import Clouds
 
-TPS = 60
+TPS = 60 * 2
 
 # stuff to implement
 # score
+# CHANGE VEL
 # death screen
 # start screen
 
@@ -59,7 +60,10 @@ def main():
         ground.move()
         draw_screen(dino, ground, clouds, obstacles)
 
-        run = not obstacles.has_collided(dino)
+        # run = not obstacles.has_collided(dino)
+
+        score += .02 + score/200000
+        print(score)
 
     main()
 
