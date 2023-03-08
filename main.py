@@ -1,9 +1,9 @@
-import pygame
 from screen import *
 from dinosaur import Dino
 from obstacles.obstacles import Obstacles
 from background.ground import Ground
 from background.clouds import Clouds
+from game.start_menu import start_menu
 
 TPS = 60
 
@@ -12,8 +12,6 @@ TPS = 60
 # score
 # CHANGE VEL
 # death screen
-# start screen
-
 def main():
     dino = Dino(100)
     ground = Ground()
@@ -21,8 +19,9 @@ def main():
     obstacles = Obstacles()
     score = 0
 
+    start_menu(dino, ground, clouds, obstacles)
+
     clock = pygame.time.Clock()
-    delta = 0
 
     run = True
     while run:
@@ -45,6 +44,7 @@ def main():
                 if event.key == pygame.K_DOWN:
                     dino.is_ducking = False
 
+
         obstacles.update_obstacles()
 
         # change vel
@@ -59,14 +59,16 @@ def main():
         clouds.move()
         dino.move()
         ground.move()
+
         draw_screen(dino, ground, clouds, obstacles)
+
 
         run = not obstacles.has_collided(dino)
 
         score += .02 + score/200000
         print(score)
 
-    main()
+
 
 
 main()

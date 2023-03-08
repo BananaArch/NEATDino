@@ -4,12 +4,13 @@ import os
 pygame.display.init()
 pygame.font.init()
 
-# largeText = pygame.font.Font('freesansbold.ttf',90)
+MEDIUM_FONT = pygame.font.Font(os.path.join('assets', '8bitmadness.ttf'), 48)
 
 DINO_SPRITE_SHEET_IMG = pygame.image.load(os.path.join('assets', 'dino_sprite_sheet.png'))
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 300
-BG = (255, 255, 255)
+WHITE = (255, 255, 255)
+GRAY = (128, 128, 128)
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('DINO GAME')
@@ -21,13 +22,14 @@ def get_image(**kwargs):
     return image
 
 def start_screen():
-    pass
-
-def draw_screen(dino, ground, cloud, obstacles):
-    screen.fill(BG)
+    start_text = MEDIUM_FONT.render('Press space to play', False, GRAY, None)
+    screen.blit(start_text, (20, 20))
+    pygame.display.update()
+def draw_screen(dino, ground, clouds, obstacles):
+    screen.fill(WHITE)
 
     ground.draw(screen)
-    cloud.draw(screen)
+    clouds.draw(screen)
     dino.draw(screen)
     obstacles.draw(screen)
 
