@@ -20,6 +20,9 @@ def get_image(**kwargs):
     image.blit(DINO_SPRITE_SHEET_IMG, (0, 0), (kwargs['x'], kwargs['y'], kwargs['w'], kwargs['h']))
     return image
 
+def start_screen():
+    pass
+
 def draw_screen(dino, ground, cloud, obstacles):
     screen.fill(BG)
 
