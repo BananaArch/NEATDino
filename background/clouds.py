@@ -11,7 +11,6 @@ class Clouds:
         self.cloud_chance_initial = 0
         self.cloud_chance = 0
         self.cloud_chance_final = 0
-        self.vel = 1
 
     def create_cloud(self):
 
@@ -39,10 +38,9 @@ class Clouds:
         for cloud in self.clouds:
             cloud.draw(screen)
 
-    def move(self):
+    def move(self, vel):
         self.create_cloud()
         for cloud in self.clouds:
-            cloud.vel = self.vel
-            cloud.move()
+            cloud.move(vel)
             if cloud.x < - cloud.img.get_width():
                 self.clouds.remove(cloud)

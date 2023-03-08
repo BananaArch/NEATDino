@@ -13,11 +13,10 @@ class Ground:
         self.y = self.HEIGHT
         self.x1 = 0
         self.x2 = self.WIDTH
-        self.vel = 10
 
-    def move(self):
-        self.x1 -= self.vel
-        self.x2 -= self.vel
+    def move(self, vel):
+        self.x1 -= vel
+        self.x2 -= vel
 
         if self.x1 < 0:
             self.x2 = self.WIDTH + self.x1

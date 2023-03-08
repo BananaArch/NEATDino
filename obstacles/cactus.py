@@ -13,11 +13,10 @@ class Cactus:
         self.img = CACTI_IMGS[random.randrange(0, len(CACTI_IMGS))]
         self.x = SCREEN_WIDTH
         self.y = .9 * SCREEN_HEIGHT - self.img.get_height()
-        self.vel = 10
         self.passed = False
 
-    def move(self):
-        self.x -= self.vel
+    def move(self, vel):
+        self.x -= vel
     def draw(self, screen):
         screen.blit(self.img, (self.x, self.y))
 

@@ -10,10 +10,9 @@ class Cloud:
         self.x = SCREEN_WIDTH
         self.y = random.randrange(0, .4 * SCREEN_HEIGHT)
         self.img = CLOUD_IMGS[random.randrange(0, len(CLOUD_IMGS))]
-        self.vel = 1
 
-    def move(self):
-        self.x -= self.vel
+    def move(self, vel):
+        self.x -= vel
 
     def draw(self, screen):
         screen.blit(self.img, (self.x, self.y))

@@ -9,7 +9,6 @@ class Obstacles:
 
     def __init__(self):
         self.obstacles = [Cactus()]
-        self.vel = 10
         self.x_threshold = random.uniform(.4 * SCREEN_WIDTH, .6 * SCREEN_WIDTH)
 
     def update_obstacles(self):
@@ -23,10 +22,9 @@ class Obstacles:
             if obstacle.x < -obstacle.img.get_width():
                 self.obstacles.remove(obstacle)
 
-    def move(self):
+    def move(self, vel):
         for obstacle in self.obstacles:
-            obstacle.vel = self.vel
-            obstacle.move()
+            obstacle.move(vel)
 
     def draw(self, screen):
         for obstacle in self.obstacles:

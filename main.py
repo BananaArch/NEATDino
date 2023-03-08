@@ -9,14 +9,14 @@ TPS = 60
 
 # stuff to implement
 
-# score
-# CHANGE VEL
+# NEAT
 # death screen
 def main():
     dino = Dino(100)
     ground = Ground()
     clouds = Clouds()
     obstacles = Obstacles()
+    vel = 10
     score = 0
 
     start_menu(dino, ground, clouds, obstacles)
@@ -26,7 +26,7 @@ def main():
     run = True
     while run:
 
-        delta = clock.tick(TPS)
+        dt = clock.tick(TPS)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -47,27 +47,21 @@ def main():
 
         obstacles.update_obstacles()
 
-        # change vel
-        # vel = 10 + score / 100 if 10 + score / 100 < 15 else 15 # make nicer
-        vel = 10 * delta * TPS / 1000
-
-        ground.vel = vel
-        obstacles.vel = vel
-        clouds.vel = vel / 10
-
-        obstacles.move()
-        clouds.move()
         dino.move()
-        ground.move()
+        obstacles.move(vel * dt * TPS / 1000)
+        ground.move(vel * dt * TPS / 1000)
+        clouds.move((vel * dt * TPS / 1000) / 10)
 
         draw_screen(dino, ground, clouds, obstacles)
+        draw_score(score)
+        pygame.display.update()
 
 
-        run = not obstacles.has_collided(dino)
+        if obstacles.has_collided(dino):
+            main()
 
-        score += .02 + score/200000
-        print(score)
-
+        score += .025 + score / 1250
+        vel = vel + .0015 if vel < 20 else 20
 
 
 
