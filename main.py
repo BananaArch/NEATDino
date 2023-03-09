@@ -1,9 +1,11 @@
+import pygame
 from screen import *
 from dinosaur import Dino
 from obstacles.obstacles import Obstacles
 from background.ground import Ground
 from background.clouds import Clouds
 from game.start_menu import start_menu
+from game.death_menu import death_menu
 
 TPS = 60
 
@@ -11,6 +13,7 @@ TPS = 60
 
 # NEAT
 # death screen
+# sounds
 def main():
     dino = Dino(100)
     ground = Ground()
@@ -58,11 +61,13 @@ def main():
 
 
         if obstacles.has_collided(dino):
-            main()
+            run = False
 
-        score += .025 + score / 1250
-        vel = vel + .0015 if vel < 20 else 20
+        score += .03 + score / 1250
+        vel = vel + .002 if vel < 25 else 25
+        # print(vel)
 
-
+    death_menu(dino, ground, clouds, obstacles, score)
+    main()
 
 main()

@@ -7,10 +7,6 @@ def start_menu(dino, ground, clouds, obstacles):
     run = True
     while run:
 
-        start_screen()
-        draw_score(0)
-        pygame.display.update()
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -19,3 +15,7 @@ def start_menu(dino, ground, clouds, obstacles):
                 if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
                     run = False
                     dino.is_jumping = True
+
+        start_screen()
+        draw_score(0)
+        pygame.display.update()

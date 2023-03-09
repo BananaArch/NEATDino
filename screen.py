@@ -4,8 +4,9 @@ import os
 pygame.display.init()
 pygame.font.init()
 
+LARGE_FONT = pygame.font.Font(os.path.join('assets', '8bitmadness.ttf'), 64)
 MEDIUM_FONT = pygame.font.Font(os.path.join('assets', '8bitmadness.ttf'), 48)
-SMALL_FONT = pygame.font.Font(os.path.join('assets', '8bitmadness.ttf'), 32)
+
 
 DINO_SPRITE_SHEET_IMG = pygame.image.load(os.path.join('assets', 'dino_sprite_sheet.png'))
 SCREEN_WIDTH = 1200
@@ -18,8 +19,8 @@ pygame.display.set_caption('DINO GAME')
 
 def get_image(**kwargs):
     image = pygame.Surface((kwargs['w'], kwargs['h']), pygame.SRCALPHA, 32)
-    image = image.convert_alpha()
     image.blit(DINO_SPRITE_SHEET_IMG, (0, 0), (kwargs['x'], kwargs['y'], kwargs['w'], kwargs['h']))
+    image = image.convert_alpha()
     return image
 
 def start_screen():
@@ -34,9 +35,9 @@ def draw_screen(dino, ground, clouds, obstacles):
     obstacles.draw(screen)
 
 def draw_score(score):
-    score_text = MEDIUM_FONT.render("{:05d}".format(round(score)), False, GRAY, None)
-    screen.blit(score_text, (SCREEN_WIDTH - score_text.get_width() - 20, 20))
+    text = MEDIUM_FONT.render("{:05d}".format(round(score)), False, GRAY, None)
+    screen.blit(text, (SCREEN_WIDTH - text.get_width() - 20, 20))
 
-def death_text():
-    # text = largeText.render("GAME OVER")
-    pass
+def death_text(score):
+    text = LARGE_FONT.render("GAME OVER", False, GRAY, None)
+    screen.blit(text, ((SCREEN_WIDTH - text.get_width()) // 2, (.3 * SCREEN_HEIGHT - text.get_height()) // 2))

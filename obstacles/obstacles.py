@@ -9,7 +9,7 @@ class Obstacles:
 
     def __init__(self):
         self.obstacles = [Cactus()]
-        self.x_threshold = random.uniform(.4 * SCREEN_WIDTH, .6 * SCREEN_WIDTH)
+        self.x_threshold = 0 * SCREEN_WIDTH
 
     def update_obstacles(self):
 
@@ -17,7 +17,7 @@ class Obstacles:
             if not obstacle.passed and obstacle.x < self.x_threshold:
                 obstacle.passed = True
                 self.obstacles.append(random.choice([Cactus(), Cactus(), Bird()]))
-                self.x_threshold = random.uniform(0 * SCREEN_WIDTH, .5 * SCREEN_WIDTH)
+                self.x_threshold = random.uniform(.3 * SCREEN_WIDTH, .45 * SCREEN_WIDTH)
 
             if obstacle.x < -obstacle.img.get_width():
                 self.obstacles.remove(obstacle)
