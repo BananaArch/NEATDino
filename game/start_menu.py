@@ -15,6 +15,8 @@ def start_menu(dino, ground, clouds, obstacles):
                 if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
                     run = False
                     dino.is_jumping = True
+                if event.key == pygame.K_RETURN:
+                    run = False
 
         start_screen()
         draw_score(0)

@@ -15,3 +15,6 @@ def death_menu(dino, ground, clouds, obstacles, score):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    run = False

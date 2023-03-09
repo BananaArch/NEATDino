@@ -37,7 +37,9 @@ class Obstacles:
         for obstacle in self.obstacles:
 
             obstacle_mask = obstacle.get_mask()
-            obstacle_offset = (dino.x - obstacle.x, obstacle.y - round(dino.y))
+            # obstacle_offset = (dino.x - obstacle.x, obstacle.y - round(dino.y))
+            obstacle_offset = (dino.x - obstacle.x, obstacle.y - dino.y)
+            print(obstacle_offset)
 
             if dino_mask.overlap(obstacle_mask, obstacle_offset):
                 return True

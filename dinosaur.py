@@ -31,7 +31,7 @@ class Dino:
         if self.is_ducking and not self.is_jumping:
             self.img = DUCK_IMGS[self.img_count // self.ANIMATION_TIME % len(DUCK_IMGS)]
             self.min_height = self.DUCK_MIN_HEIGHT
-            self.acc *= 1.5
+            self.acc *= 1.25
         elif self.is_jumping and not self.is_ducking or self.y < self.min_height:
             self.img = STILL_IMG
             self.min_height = self.RUN_MIN_HEIGHT
@@ -61,4 +61,4 @@ class Dino:
         pass
 
     def get_mask(self):
-        return pygame.mask.from_surface(self.img)
+        return pygame.mask.from_surface(RUN_IMGS[0])

@@ -14,12 +14,15 @@ TPS = 60
 # NEAT
 # death screen
 # sounds
+# FIX COLLISIONs
+# make smoother
+
 def main():
     dino = Dino(100)
     ground = Ground()
     clouds = Clouds()
     obstacles = Obstacles()
-    vel = 10
+    vel = 7.5
     score = 0
 
     start_menu(dino, ground, clouds, obstacles)
@@ -63,7 +66,7 @@ def main():
         if obstacles.has_collided(dino):
             run = False
 
-        score += .03 + score / 1250
+        score += .05 + score / 1500
         vel = vel + .002 if vel < 25 else 25
         # print(vel)
 
