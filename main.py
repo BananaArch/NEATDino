@@ -1,4 +1,7 @@
+import pygame
+from pygame import mixer
 from game.screen import *
+from game.sfx import *
 from actors.dinosaur import Dino
 from actors.obstacles import Obstacles
 from background.ground import Ground
@@ -12,15 +15,14 @@ TPS = 60
 
 # NEAT
 # sounds
-# FIX COLLISIONs
-# make smoother
+# round() == smoother?
 
 def main():
     dino = Dino(100)
     ground = Ground()
     clouds = Clouds()
     obstacles = Obstacles()
-    vel = 7.5
+    vel = 10
     score = 0
 
     start_menu(dino, ground, clouds, obstacles)
@@ -64,9 +66,8 @@ def main():
         if obstacles.has_collided(dino):
             run = False
 
-        score += .05 + score / 1500
+        score += .05 + score / 2000
         vel = vel + .002 if vel < 25 else 25
-        # print(vel)
 
     death_menu(dino, ground, clouds, obstacles, score)
     main()

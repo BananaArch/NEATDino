@@ -4,9 +4,10 @@ import os
 pygame.display.init()
 pygame.font.init()
 
-LARGE_FONT = pygame.font.Font(os.path.join('assets', 'eight-bit_madness.ttf'), 64)
+LARGE_FONT = pygame.font.Font(os.path.join('assets', 'eight-bit_madness.ttf'), 73)
 MEDIUM_FONT = pygame.font.Font(os.path.join('assets', 'eight-bit_madness.ttf'), 48)
 
+# original font is https://fonts.google.com/specimen/Press+Start+2P but I think 8bit looks nicer
 
 DINO_SPRITE_SHEET_IMG = pygame.image.load(os.path.join('assets', 'dino_sprite_sheet.png'))
 SCREEN_WIDTH = 1200

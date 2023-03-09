@@ -1,5 +1,5 @@
 from game.screen import *
-
+from game.sfx import *
 
 def start_menu(dino, ground, clouds, obstacles):
     draw_screen(dino, ground, clouds, obstacles)
@@ -21,3 +21,5 @@ def start_menu(dino, ground, clouds, obstacles):
         start_screen()
         draw_score(0)
         pygame.display.update()
+
+    play_player_action()
