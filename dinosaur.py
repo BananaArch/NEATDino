@@ -58,7 +58,3 @@ class Dino:
     def draw(self, screen):
 
         screen.blit(self.img, (self.x, self.y))
-        pass
-
-    def get_mask(self):
-        return pygame.mask.from_surface(RUN_IMGS[0])

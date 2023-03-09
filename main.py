@@ -65,7 +65,7 @@ def main():
 
         if obstacles.has_collided(dino):
             run = False
-
+            # pass
         score += .05 + score / 1500
         vel = vel + .002 if vel < 25 else 25
         # print(vel)

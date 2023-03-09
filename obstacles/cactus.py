@@ -19,6 +19,3 @@ class Cactus:
         self.x -= vel
     def draw(self, screen):
         screen.blit(self.img, (self.x, self.y))
-
-    def get_mask(self):
-        return pygame.mask.from_surface(self.img)

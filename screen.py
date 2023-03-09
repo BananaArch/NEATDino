@@ -4,8 +4,8 @@ import os
 pygame.display.init()
 pygame.font.init()
 
-LARGE_FONT = pygame.font.Font(os.path.join('assets', '8bitmadness.ttf'), 64)
-MEDIUM_FONT = pygame.font.Font(os.path.join('assets', '8bitmadness.ttf'), 48)
+LARGE_FONT = pygame.font.Font(os.path.join('assets', 'Eight-Bit Madness.ttf'), 64)
+MEDIUM_FONT = pygame.font.Font(os.path.join('assets', 'Eight-Bit Madness.ttf'), 48)
 
 
 DINO_SPRITE_SHEET_IMG = pygame.image.load(os.path.join('assets', 'dino_sprite_sheet.png'))
