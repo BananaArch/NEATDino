@@ -1,4 +1,4 @@
-from screen import *
+from game.screen import *
 
 
 def start_menu(dino, ground, clouds, obstacles):

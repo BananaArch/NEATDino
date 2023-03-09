@@ -1,7 +1,6 @@
-import pygame
-from screen import *
-from dinosaur import Dino
-from obstacles.obstacles import Obstacles
+from game.screen import *
+from actors.dinosaur import Dino
+from actors.obstacles import Obstacles
 from background.ground import Ground
 from background.clouds import Clouds
 from game.start_menu import start_menu

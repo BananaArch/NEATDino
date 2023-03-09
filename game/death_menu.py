@@ -1,6 +1,5 @@
-import pygame
-from screen import *
-from sprites import *
+from game.screen import *
+from game.sprites import *
 
 REPLAY_IMG = REPLAY_ICON_IMG
 BUTTON_POSITION = ((SCREEN_WIDTH - REPLAY_IMG.get_width()) // 2, (SCREEN_HEIGHT - REPLAY_IMG.get_height()) // 2)

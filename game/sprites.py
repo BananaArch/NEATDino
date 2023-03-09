@@ -1,4 +1,4 @@
-from screen import get_image
+from game.screen import get_image
 
 BIRD_UP = {'x': 708, 'y': 31, 'w': 84, 'h': 52}
 BIRD_DOWN = {'x': 708, 'y': 85, 'w': 84, 'h': 60}

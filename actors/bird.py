@@ -1,7 +1,6 @@
-import pygame
 import random
-from sprites import *
-from screen import SCREEN_HEIGHT, SCREEN_WIDTH
+from game.sprites import *
+from game.screen import SCREEN_HEIGHT, SCREEN_WIDTH
 
 BIRD_IMGS = [BIRD_UP_IMG, BIRD_DOWN_IMG]
 class Bird:

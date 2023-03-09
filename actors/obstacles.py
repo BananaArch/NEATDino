@@ -1,9 +1,8 @@
 import pygame
 import random
-from screen import SCREEN_WIDTH
-from obstacles.bird import Bird
-from obstacles.cactus import Cactus
-from sprites import DINO_STILL_IMG
+from game.screen import SCREEN_WIDTH
+from actors.bird import Bird
+from actors.cactus import Cactus
 
 
 class Obstacles:
@@ -33,19 +32,15 @@ class Obstacles:
 
     def has_collided(self, dino):
 
-        dino_run_mask = pygame.mask.from_surface(dino.RUN_IMGS[0])
-        dino_duck_mask = pygame.mask.from_surface(dino.STILL_IMG)
+        dino_run_mask = pygame.mask.from_surface(dino.img)
 
         for obstacle in self.obstacles:
 
             obstacle_mask = pygame.mask.from_surface(obstacle.img)
-            obstacle_offset = (dino.x - obstacle.x, dino.y - obstacle.y)
-            # obstacle_offset = (dino.x - obstacle.x, obstacle.y - round(dino))
-            # print('x ' + str(dino.x - obstacle.x))
-            # print('y ' + str(obstacle.y - round(dino.y)))
+            obstacle_x_offset = dino.x + dino.img.get_width() - (obstacle.x + obstacle.img.get_width())
+            obstacle_y_offset = dino.y + dino.img.get_height() - (obstacle.y + obstacle.img.get_height())
 
-            if dino_run_mask.overlap(obstacle_mask, obstacle_offset):
-                print('collided')
+            if dino_run_mask.overlap(obstacle_mask, (obstacle_x_offset, obstacle_y_offset)):
                 return True
 
         return False

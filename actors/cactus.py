@@ -1,6 +1,5 @@
-import pygame
-from sprites import *
-from screen import SCREEN_WIDTH, SCREEN_HEIGHT
+from game.sprites import *
+from game.screen import SCREEN_WIDTH, SCREEN_HEIGHT
 import random
 
 CACTI_IMGS = [CACTUS_IMG,

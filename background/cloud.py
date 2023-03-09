@@ -1,7 +1,7 @@
 import pygame
 import random
-from screen import SCREEN_WIDTH, SCREEN_HEIGHT
-from sprites import *
+from game.screen import SCREEN_WIDTH, SCREEN_HEIGHT
+from game.sprites import *
 
 CLOUD_IMGS = [CLOUD_IMG, pygame.transform.flip(CLOUD_IMG, flip_x=True, flip_y=False)]
 class Cloud:
