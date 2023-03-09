@@ -33,8 +33,8 @@ class Obstacles:
 
     def has_collided(self, dino):
 
-        dino_mask = pygame.mask.from_surface(dino.img)
-
+        dino_run_mask = pygame.mask.from_surface(dino.RUN_IMGS[0])
+        dino_duck_mask = pygame.mask.from_surface(dino.STILL_IMG)
 
         for obstacle in self.obstacles:
 
@@ -44,7 +44,7 @@ class Obstacles:
             # print('x ' + str(dino.x - obstacle.x))
             # print('y ' + str(obstacle.y - round(dino.y)))
 
-            if dino_mask.overlap(obstacle_mask, obstacle_offset):
+            if dino_run_mask.overlap(obstacle_mask, obstacle_offset):
                 print('collided')
                 return True
 

@@ -40,4 +40,7 @@ def draw_score(score):
 
 def death_text(score):
     text = LARGE_FONT.render("GAME OVER", False, GRAY, None)
-    screen.blit(text, ((SCREEN_WIDTH - text.get_width()) // 2, (.3 * SCREEN_HEIGHT - text.get_height()) // 2))
+    screen.blit(text, ((SCREEN_WIDTH - text.get_width()) // 2, (.4 * SCREEN_HEIGHT - text.get_height()) // 2))
+
+def replay_button(button_img, button_rect):
+    screen.blit(button_img, button_rect)
