@@ -41,6 +41,7 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
                     dino.is_jumping = True
+                    play_player_action()
                 if event.key == pygame.K_DOWN:
                    dino.is_ducking = True
 
@@ -67,8 +68,11 @@ def main():
             run = False
 
         score += .05 + score / 2000
+
         vel = vel + .002 if vel < 25 else 25
 
+    play_gameover()
+    play_achievement()
     death_menu(dino, ground, clouds, obstacles, score)
     main()
 
