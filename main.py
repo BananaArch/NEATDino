@@ -1,3 +1,4 @@
+import math
 import pygame
 from pygame import mixer
 from game.screen import *
@@ -14,7 +15,6 @@ TPS = 60
 # stuff to implement
 
 # NEAT
-# sounds
 # round() == smoother?
 
 def main():
@@ -41,7 +41,8 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
                     dino.is_jumping = True
-                    play_player_action()
+                    if dino.y is dino.min_height:
+                        play_player_action()
                 if event.key == pygame.K_DOWN:
                    dino.is_ducking = True
 
@@ -71,8 +72,14 @@ def main():
 
         vel = vel + .002 if vel < 25 else 25
 
+
+        # goes 100, 200, 300 ... , 1000, 2000, 3000 ...
+        if round(score) % math.pow(10, math.floor(math.log10(score))) == 0 and score >= 100:
+            play_achievement()
+
+
+
     play_gameover()
-    play_achievement()
     death_menu(dino, ground, clouds, obstacles, score)
     main()
 

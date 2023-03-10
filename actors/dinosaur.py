@@ -1,5 +1,6 @@
 from game.sprites import *
 from game.screen import SCREEN_HEIGHT
+from game.sfx import play_player_action
 
 STILL_IMG = DINO_STILL_IMG
 RUN_IMGS = [DINO_LEFT_IMG, DINO_RIGHT_IMG]
@@ -44,6 +45,7 @@ class Dino:
         if self.is_jumping and self.y is self.min_height:
             # initial velocity when jumping
             self.vel = - 18
+            play_player_action()
 
         self.vel += self.acc
 
