@@ -1,3 +1,5 @@
+import pygame
+
 from game.sprites import *
 from game.screen import SCREEN_HEIGHT
 from game.sfx import play_player_action
@@ -59,3 +61,11 @@ class Dino:
     def draw(self, screen):
 
         screen.blit(self.img, (self.x, self.y))
+
+    def draw_alpha(self, screen):
+
+        alpha = 255 // 2
+
+        alpha_img = self.img.copy()
+        alpha_img.fill((255, 255, 255, alpha), None, pygame.BLEND_RGBA_MULT)
+        screen.blit(alpha_img, (self.x, self.y))

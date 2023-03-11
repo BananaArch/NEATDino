@@ -2,7 +2,6 @@ from game.screen import *
 from game.sfx import *
 
 def start_menu(dino, ground, clouds, obstacles):
-    draw_screen(dino, ground, clouds, obstacles)
 
     run = True
     while run:
@@ -18,8 +17,8 @@ def start_menu(dino, ground, clouds, obstacles):
                 if event.key == pygame.K_RETURN:
                     run = False
 
+        draw_screen(dino, ground, clouds, obstacles, score=0)
         start_screen()
-        draw_score(0)
         pygame.display.update()
 
     play_player_action()

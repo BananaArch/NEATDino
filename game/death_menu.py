@@ -4,16 +4,14 @@ from game.sprites import *
 REPLAY_IMG = REPLAY_ICON_IMG
 BUTTON_POSITION = ((SCREEN_WIDTH - REPLAY_IMG.get_width()) // 2, (SCREEN_HEIGHT - REPLAY_IMG.get_height()) // 2)
 
-def death_menu(dino, ground, clouds, obstacles, score):
+def death_menu():
 
     button_img = REPLAY_IMG
     button_rect = button_img.get_rect(topleft=BUTTON_POSITION)
 
 
-    draw_screen(dino, ground, clouds, obstacles)
-    death_text(score)
+    death_text()
     replay_button(button_img, button_rect)
-    draw_score(score)
     pygame.display.update()
 
 

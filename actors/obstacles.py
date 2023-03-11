@@ -9,7 +9,7 @@ class Obstacles:
 
     def __init__(self):
         self.obstacles = [Cactus()]
-        self.x_threshold = 0 * SCREEN_WIDTH
+        self.x_threshold = .5 * SCREEN_WIDTH
 
     def update_obstacles(self):
 
@@ -44,3 +44,8 @@ class Obstacles:
                 return True
 
         return False
+
+    def next_obstacle(self, dino):
+
+
+        return next(obstacle for obstacle in self.obstacles if (obstacle.x + obstacle.img.get_width()) > dino.x)

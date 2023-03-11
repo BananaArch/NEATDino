@@ -12,6 +12,7 @@ from game.death_menu import death_menu
 
 TPS = 60
 
+
 # stuff to implement
 
 # NEAT
@@ -44,14 +45,13 @@ def main():
                     if dino.y is dino.min_height:
                         play_player_action()
                 if event.key == pygame.K_DOWN:
-                   dino.is_ducking = True
+                    dino.is_ducking = True
 
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
                     dino.is_jumping = False
                 if event.key == pygame.K_DOWN:
                     dino.is_ducking = False
-
 
         obstacles.update_obstacles()
 
@@ -60,10 +60,8 @@ def main():
         ground.move(vel * dt * TPS / 1000)
         clouds.move((vel * dt * TPS / 1000) / 10)
 
-        draw_screen(dino, ground, clouds, obstacles)
-        draw_score(score)
+        draw_screen(dino, ground, clouds, obstacles, score)
         pygame.display.update()
-
 
         if obstacles.has_collided(dino):
             run = False
@@ -72,15 +70,13 @@ def main():
 
         vel = vel + .002 if vel < 25 else 25
 
-
         # goes 100, 200, 300 ... , 1000, 2000, 3000 ...
         if round(score) % math.pow(10, math.floor(math.log10(score))) == 0 and score >= 100:
             play_achievement()
 
-
-
     play_gameover()
-    death_menu(dino, ground, clouds, obstacles, score)
+    death_menu()
     main()
+
 
 main()
