@@ -44,7 +44,7 @@ def draw_neat_screen(dinos, ground, clouds, obstacles, score, generation, dinos_
     ground.draw(screen)
     clouds.draw(screen)
     for dino in dinos:
-        dino.draw_alpha(screen, 255 // 2)
+        dino.draw_alpha(screen)
 
     obstacles.draw(screen)
 

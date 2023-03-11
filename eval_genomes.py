@@ -15,10 +15,11 @@ GEN = 0
 
 
 # inputs
-#     dino height
-#     obstacle_x_displacement = dino.x + dino.img.get_width() - obstacle.x
-#     obstacle_y_displacement = dino.y - obstacle.y
-#     obstacle width
+#     dino y
+#     obstacle_x1
+#     obstacle_x2
+#     obstacle_y1
+#     obstacle_y2
 #     obstacle velocity
 # outputs
 #     jump [0,1]
@@ -27,8 +28,6 @@ GEN = 0
 def eval_genomes(genomes, config):
 
     global GEN
-    GEN += 1
-
     ground = Ground()
     clouds = Clouds()
     obstacles = Obstacles()
@@ -49,8 +48,8 @@ def eval_genomes(genomes, config):
 
     run = True
     while run:
-   
-        dt = clock.tick(TPS)
+
+        clock.tick(TPS)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -58,6 +57,7 @@ def eval_genomes(genomes, config):
                 quit()
 
         if len(dinos) == 0:
+            GEN += 1
             run = False
 
         #     NEURAL NET AND FITNESS
@@ -69,12 +69,12 @@ def eval_genomes(genomes, config):
 
             next_obstacle = obstacles.next_obstacle(dino)
 
-            dino_height = dino.min_height - dino.y
-            obstacle_x_distance = dino.x + dino.img.get_width() - next_obstacle.x
-            obstacle_y_displacement = dino.y - next_obstacle.y
-            obstacle_width = next_obstacle.img.get_width()
-
-            output = nets[i].activate((dino_height, obstacle_x_distance, obstacle_y_displacement, obstacle_width, vel))
+            output = nets[i].activate((dino.y,
+                                       next_obstacle.x,
+                                       next_obstacle.x + next_obstacle.img.get_width(),
+                                       next_obstacle.y,
+                                       next_obstacle.y + next_obstacle.img.get_height(),
+                                       vel))
 
             dino.is_jumping = output[0] >= .5
             dino.is_ducking = output[1] >= .5
@@ -85,9 +85,9 @@ def eval_genomes(genomes, config):
                 ge.pop(i)
 
 
-        obstacles.move(vel * dt * TPS / 1000)
-        ground.move(vel * dt * TPS / 1000)
-        clouds.move((vel * dt * TPS / 1000) / 10)
+        obstacles.move(vel)
+        ground.move(vel)
+        clouds.move(vel)
 
         draw_neat_screen(dinos, ground, clouds, obstacles, score, GEN, len(dinos))
         pygame.display.update()
