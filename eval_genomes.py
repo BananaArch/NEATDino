@@ -16,10 +16,11 @@ GEN = 0
 
 # inputs
 #     dino y
-#     obstacle_x1
-#     obstacle_x2
-#     obstacle_y1
-#     obstacle_y2
+#     dino_width
+#     obstacle_x
+#     obstacle_y
+#     obstacle_width
+#     obstacle_height
 #     obstacle velocity
 # outputs
 #     jump [0,1]
@@ -58,26 +59,36 @@ def eval_genomes(genomes, config):
 
         if len(dinos) == 0:
             GEN += 1
-            run = False
+            break
 
         #     NEURAL NET AND FITNESS
-
+        next_obstacle = obstacles.next_obstacle(dinos[0])
         for i, dino in enumerate(dinos):
 
-            ge[i].fitness = score
+            ge[i].fitness += 1 / TPS
+            print(next_obstacle)
             dino.move()
 
-            next_obstacle = obstacles.next_obstacle(dino)
+
+
+            #     dino y
+            #     dino_width
+            #     obstacle_x
+            #     obstacle_y
+            #     obstacle_width
+            #     obstacle_height
+            #     obstacle velocity
 
             output = nets[i].activate((dino.y,
+                                       dino.img.get_width(),
                                        next_obstacle.x,
-                                       next_obstacle.x + next_obstacle.img.get_width(),
                                        next_obstacle.y,
-                                       next_obstacle.y + next_obstacle.img.get_height(),
+                                       next_obstacle.img.get_width(),
+                                       next_obstacle.img.get_height(),
                                        vel))
 
-            dino.is_jumping = output[0] >= .5
-            dino.is_ducking = output[1] >= .5
+            dino.is_jumping = output[0] > 0
+            dino.is_ducking = output[1] > 0 and not dino.is_jumping
 
             if obstacles.has_collided(dino):
                 dinos.pop(i)
@@ -102,6 +113,8 @@ def eval_genomes(genomes, config):
         if round(score) % math.pow(10, math.floor(math.log10(score))) == 0 and score >= 100:
             play_achievement()
 
+    print('Score: {!s}'.format(round(score)))
+
 def run(config_file):
     config = neat.config.Config(neat.DefaultGenome,
                                 neat.DefaultReproduction,
@@ -115,7 +128,7 @@ def run(config_file):
     population.add_reporter(neat.StatisticsReporter())
 
     winner = population.run(eval_genomes, 100)
-    print('\nBest genome:\n{!s}'.format(winner))
+    print('\nBest genome:{!s}\n'.format(winner))
 
 if __name__ == '__main__':
     local_dir = os.path.dirname(__file__)

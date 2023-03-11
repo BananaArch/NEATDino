@@ -14,8 +14,8 @@ class Obstacles:
     def update_obstacles(self):
 
         for obstacle in self.obstacles:
-            if not obstacle.passed and obstacle.x < self.x_threshold:
-                obstacle.passed = True
+            if not obstacle.passed_threshold and obstacle.x < self.x_threshold:
+                obstacle.passed_threshold = True
                 self.obstacles.append(random.choice([Cactus(), Cactus(), Bird()]))
                 self.x_threshold = random.uniform(.3 * SCREEN_WIDTH, .45 * SCREEN_WIDTH)
 
@@ -45,7 +45,10 @@ class Obstacles:
 
         return False
 
+
+
+
     def next_obstacle(self, dino):
 
+        return next(obstacle for obstacle in self.obstacles if obstacle.x + obstacle.img.get_width() > dino.x + dino.img.get_width())
 
-        return next(obstacle for obstacle in self.obstacles if (obstacle.x + obstacle.img.get_width()) > dino.x)
