@@ -65,8 +65,9 @@ def eval_genomes(genomes, config):
         next_obstacle = obstacles.next_obstacle(dinos[0])
         for i, dino in enumerate(dinos):
 
-            ge[i].fitness += 1 / TPS
-            print(next_obstacle)
+            ge[i].fitness += .1
+            if dino.is_ducking:
+                ge[i].fitness += .1
             dino.move()
 
 
@@ -80,15 +81,15 @@ def eval_genomes(genomes, config):
             #     obstacle velocity
 
             output = nets[i].activate((dino.y,
-                                       dino.img.get_width(),
+                                       dino.img.get_width() + dino.x,
                                        next_obstacle.x,
                                        next_obstacle.y,
                                        next_obstacle.img.get_width(),
                                        next_obstacle.img.get_height(),
                                        vel))
 
-            dino.is_jumping = output[0] > 0
-            dino.is_ducking = output[1] > 0 and not dino.is_jumping
+            dino.is_jumping = output[0] > .5
+            dino.is_ducking = output[1] > .5 and not dino.is_jumping
 
             if obstacles.has_collided(dino):
                 dinos.pop(i)
@@ -113,6 +114,7 @@ def eval_genomes(genomes, config):
         if round(score) % math.pow(10, math.floor(math.log10(score))) == 0 and score >= 100:
             play_achievement()
 
+    play_gameover()
     print('Score: {!s}'.format(round(score)))
 
 def run(config_file):
@@ -127,7 +129,7 @@ def run(config_file):
     population.add_reporter(neat.StdOutReporter(True))
     population.add_reporter(neat.StatisticsReporter())
 
-    winner = population.run(eval_genomes, 100)
+    winner = population.run(eval_genomes, 1000)
     print('\nBest genome:{!s}\n'.format(winner))
 
 if __name__ == '__main__':
