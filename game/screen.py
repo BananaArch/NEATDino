@@ -51,11 +51,11 @@ def draw_neat_screen(dinos, ground, clouds, obstacles, score, generation, dinos_
     score_text = MEDIUM_FONT.render("{:05d}".format(round(score)), False, GRAY, None)
     screen.blit(score_text, (SCREEN_WIDTH - score_text.get_width() - 20, 20))
 
-    dinos_alive_text = SMALL_FONT.render("Alive {:02d}".format(dinos_alive), False, GRAY, None)
+    dinos_alive_text = SMALL_FONT.render("Alive {:03d}".format(dinos_alive), False, GRAY, None)
     dinos_alive_pos = (SCREEN_WIDTH - dinos_alive_text.get_width() - 20, score_text.get_height() + dinos_alive_text.get_height() + 10)
     screen.blit(dinos_alive_text, dinos_alive_pos)
 
-    gen_text = SMALL_FONT.render("Gen {:02d}".format(generation), False, GRAY, None)
+    gen_text = SMALL_FONT.render("Gen {:03d}".format(generation), False, GRAY, None)
     gen_pos = (SCREEN_WIDTH - gen_text.get_width() - 20, score_text.get_height() + dinos_alive_text.get_height() + gen_text.get_height() + 10)
     screen.blit(gen_text, gen_pos)
 

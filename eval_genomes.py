@@ -2,6 +2,7 @@ import math
 import os
 import neat.nn
 import pygame
+import pickle
 from pygame import mixer
 from game.screen import *
 from game.sfx import *
@@ -10,9 +11,12 @@ from actors.obstacles import Obstacles
 from background.ground import Ground
 from background.clouds import Clouds
 
-TPS = 60 * 2
+TPS = 60
 GEN = 0
 
+# TODO: SEE IF ISDUCKING EFFECTS NN
+# TODO: SEE IF GRAVITY ACC EFFECTS NN
+# TODO: SEE IF OBSTACLE THRESHOLD THING EFFECTS NN
 
 # inputs
 #     dino y
@@ -20,6 +24,7 @@ GEN = 0
 #     obstacle_x2
 #     obstacle_y1
 #     obstacle_y2
+#     dino_ducking
 #     obstacle velocity
 # outputs
 #     jump [0,1]
@@ -27,6 +32,7 @@ GEN = 0
 
 def eval_genomes(genomes, config):
 
+    global TPS
     global GEN
     ground = Ground()
     clouds = Clouds()
@@ -55,10 +61,21 @@ def eval_genomes(genomes, config):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    TPS *= 4
+                if event.key == pygame.K_UP:
+                    TPS *= 2
+                if event.key == pygame.K_DOWN:
+                    TPS /= 2
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_SPACE:
+                    TPS /= 4
+
 
         if len(dinos) == 0:
             GEN += 1
-            run = False
+            break
 
         #     NEURAL NET AND FITNESS
 
@@ -77,7 +94,7 @@ def eval_genomes(genomes, config):
                                        next_obstacle.x + next_obstacle.img.get_width(),
                                        next_obstacle.y,
                                        next_obstacle.y + next_obstacle.img.get_height(),
-                                       dino.is_ducking,
+                                       # dino.is_ducking,
                                        vel))
 
             dino.is_jumping = output[0] > 0
@@ -108,6 +125,7 @@ def eval_genomes(genomes, config):
 
     play_gameover()
     print('Score {!s}'.format(round(score)))
+    print('Velocity {!s}'.format(vel))
 
 def run(config_file):
     config = neat.config.Config(neat.DefaultGenome,
@@ -121,10 +139,27 @@ def run(config_file):
     population.add_reporter(neat.StdOutReporter(True))
     population.add_reporter(neat.StatisticsReporter())
 
-    winner = population.run(eval_genomes, 100)
+    winner = population.run(eval_genomes, 999)
+    with open("winner.pkl", "wb") as f:
+        pickle.dump(winner, f)
+        f.close()
     print('\nBest genome:\n{!s}'.format(winner))
+def replay_genome(config_file, genome_path="winner.pkl"):
+
+    config = neat.config.Config(neat.DefaultGenome,
+                                neat.DefaultReproduction,
+                                neat.DefaultSpeciesSet,
+                                neat.DefaultStagnation,
+                                config_file)
+
+    with open(genome_path, "rb") as f:
+        genome = pickle.load(f)
+
+    genomes = [(1, genome)]
+    eval_genomes(genomes, config)
 
 if __name__ == '__main__':
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'config.txt')
     run(config_path)
+    # replay_genome(config_path)
