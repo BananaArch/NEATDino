@@ -12,7 +12,7 @@ class Cactus:
         self.img = CACTI_IMGS[random.randrange(0, len(CACTI_IMGS))]
         self.x = SCREEN_WIDTH
         self.y = .9 * SCREEN_HEIGHT - self.img.get_height()
-        self.passed = False
+        self.passed_threshold = False
 
     def move(self, vel):
         self.x -= vel

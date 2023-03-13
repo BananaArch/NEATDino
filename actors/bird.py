@@ -16,13 +16,12 @@ class Bird:
         self.x = SCREEN_WIDTH
         self.y = random.choice(self.POSSIBLE_Y)
         self.img_count = 0
-        self.passed = False
+        self.passed_threshold = False
 
     def move(self, vel):
         self.x -= vel
 
         self.img_count += 1
         self.img = BIRD_IMGS[self.img_count // self.ANIMATION_SPEED % len(BIRD_IMGS)]
-
     def draw(self, screen):
         screen.blit(self.img, (self.x, self.y))
