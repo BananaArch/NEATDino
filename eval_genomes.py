@@ -7,11 +7,10 @@ from game.screen import *
 from game.sfx import *
 from actors.dinosaur import Dino
 from actors.obstacles import Obstacles
-from actors.obstacles import Bird
 from background.ground import Ground
 from background.clouds import Clouds
 
-TPS = 60
+TPS = 60 * 2
 GEN = 0
 
 
@@ -47,8 +46,6 @@ def eval_genomes(genomes, config):
         genome.fitness = 0
         ge.append(genome)
 
-    current_obstacle = obstacles.next_obstacle(dinos[0])
-
     run = True
     while run:
 
@@ -61,46 +58,40 @@ def eval_genomes(genomes, config):
 
         if len(dinos) == 0:
             GEN += 1
-            break
+            run = False
 
         #     NEURAL NET AND FITNESS
 
-        next_obstacle = obstacles.next_obstacle(dinos[0])
-
         for i, dino in enumerate(dinos):
 
-            # if passes bird
-            if current_obstacle != next_obstacle and isinstance(current_obstacle, Bird):
-                ge[i].fitness += 5
-            # if ducking
-            if dino.is_ducking:
-                ge[i].fitness += .05
-            # if hits cacti - fitness
-
+            ge[i].fitness += .1
+            # if dino.is_ducking:
+            #     ge[i].fitness += .1
 
             dino.move()
+
+            next_obstacle = obstacles.next_obstacle(dino)
 
             output = nets[i].activate((dino.y,
                                        next_obstacle.x,
                                        next_obstacle.x + next_obstacle.img.get_width(),
                                        next_obstacle.y,
                                        next_obstacle.y + next_obstacle.img.get_height(),
+                                       dino.is_ducking,
                                        vel))
 
-            dino.is_jumping = output[0] >= .5
-            dino.is_ducking = output[1] >= .5
+            dino.is_jumping = output[0] > 0
+            dino.is_ducking = output[1] > 0 and not dino.is_jumping
 
             if obstacles.has_collided(dino):
                 dinos.pop(i)
                 nets.pop(i)
                 ge.pop(i)
 
-        current_obstacle = next_obstacle
-
 
         obstacles.move(vel)
         ground.move(vel)
-        clouds.move(vel)
+        clouds.move(vel / 10)
 
         draw_neat_screen(dinos, ground, clouds, obstacles, score, GEN, len(dinos))
         pygame.display.update()
@@ -114,6 +105,9 @@ def eval_genomes(genomes, config):
         # goes 100, 200, 300 ... , 1000, 2000, 3000 ...
         if round(score) % math.pow(10, math.floor(math.log10(score))) == 0 and score >= 100:
             play_achievement()
+
+    play_gameover()
+    print('Score {!s}'.format(round(score)))
 
 def run(config_file):
     config = neat.config.Config(neat.DefaultGenome,
