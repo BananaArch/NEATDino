@@ -7,6 +7,7 @@ from game.screen import *
 from game.sfx import *
 from actors.dinosaur import Dino
 from actors.obstacles import Obstacles
+from actors.obstacles import Bird
 from background.ground import Ground
 from background.clouds import Clouds
 
@@ -46,6 +47,8 @@ def eval_genomes(genomes, config):
         genome.fitness = 0
         ge.append(genome)
 
+    current_obstacle = obstacles.next_obstacle(dinos[0])
+
     run = True
     while run:
 
@@ -58,16 +61,24 @@ def eval_genomes(genomes, config):
 
         if len(dinos) == 0:
             GEN += 1
-            run = False
+            break
 
         #     NEURAL NET AND FITNESS
 
+        next_obstacle = obstacles.next_obstacle(dinos[0])
+
         for i, dino in enumerate(dinos):
 
-            ge[i].fitness = score
-            dino.move()
+            # if passes bird
+            if current_obstacle != next_obstacle and isinstance(current_obstacle, Bird):
+                ge[i].fitness += 5
+            # if ducking
+            if dino.is_ducking:
+                ge[i].fitness += .05
+            # if hits cacti - fitness
 
-            next_obstacle = obstacles.next_obstacle(dino)
+
+            dino.move()
 
             output = nets[i].activate((dino.y,
                                        next_obstacle.x,
@@ -83,6 +94,8 @@ def eval_genomes(genomes, config):
                 dinos.pop(i)
                 nets.pop(i)
                 ge.pop(i)
+
+        current_obstacle = next_obstacle
 
 
         obstacles.move(vel)
