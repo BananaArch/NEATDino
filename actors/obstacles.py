@@ -17,7 +17,7 @@ class Obstacles:
             if not obstacle.passed and obstacle.x < self.x_threshold:
                 obstacle.passed = True
                 self.obstacles.append(random.choice([Cactus(), Cactus(), Bird()]))
-                self.x_threshold = random.uniform(.3 * SCREEN_WIDTH, .45 * SCREEN_WIDTH)
+                self.x_threshold = random.uniform(.2 * SCREEN_WIDTH, .4 * SCREEN_WIDTH)
 
             if obstacle.x < -obstacle.img.get_width():
                 self.obstacles.remove(obstacle)

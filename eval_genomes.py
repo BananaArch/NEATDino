@@ -14,9 +14,8 @@ from background.clouds import Clouds
 TPS = 60
 GEN = 0
 
-# TODO: SEE IF ISDUCKING EFFECTS NN
-# TODO: SEE IF GRAVITY ACC EFFECTS NN
-# TODO: SEE IF OBSTACLE THRESHOLD THING EFFECTS NN
+# CHANGE GRAVITY ACC EFFECTS NN
+# CHANGE OBSTACLE THRESHOLD THING EFFECTS NN
 
 # inputs
 #     dino y
@@ -81,9 +80,9 @@ def eval_genomes(genomes, config):
 
         for i, dino in enumerate(dinos):
 
-            ge[i].fitness += .1
+            ge[i].fitness += 1
             # if dino.is_ducking:
-            #     ge[i].fitness += .1
+            #     ge[i].fitness += 1
 
             dino.move()
 
@@ -94,7 +93,6 @@ def eval_genomes(genomes, config):
                                        next_obstacle.x + next_obstacle.img.get_width(),
                                        next_obstacle.y,
                                        next_obstacle.y + next_obstacle.img.get_height(),
-                                       # dino.is_ducking,
                                        vel))
 
             dino.is_jumping = output[0] > 0
@@ -123,6 +121,11 @@ def eval_genomes(genomes, config):
         if round(score) % math.pow(10, math.floor(math.log10(score))) == 0 and score >= 100:
             play_achievement()
 
+        if score > 99999:
+            for g in ge:
+                g.fitness += 100
+            run = False
+
     play_gameover()
     print('Score {!s}'.format(round(score)))
     print('Velocity {!s}'.format(vel))
@@ -140,11 +143,11 @@ def run(config_file):
     population.add_reporter(neat.StatisticsReporter())
 
     winner = population.run(eval_genomes, 999)
-    with open("winner.pkl", "wb") as f:
+    with open("winner", "wb") as f:
         pickle.dump(winner, f)
         f.close()
     print('\nBest genome:\n{!s}'.format(winner))
-def replay_genome(config_file, genome_path="winner.pkl"):
+def replay_genome(config_file, genome_path="1.3g, (.2, .4).pkl"):
 
     config = neat.config.Config(neat.DefaultGenome,
                                 neat.DefaultReproduction,
@@ -161,5 +164,5 @@ def replay_genome(config_file, genome_path="winner.pkl"):
 if __name__ == '__main__':
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'config.txt')
-    run(config_path)
-    # replay_genome(config_path)
+    # run(config_path)
+    replay_genome(config_path)
